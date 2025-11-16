@@ -42,7 +42,7 @@ public class Test_B1 {
 
             // Hiển thị trạng thái
             System.out.println("Sinh luc hien tai: " + sinhLuc);
-            System.out.println("Tong diem kho bau: " + diemKhoBau);
+            System.out.println("=> Tong diem kho bau: " + diemKhoBau);
 
             // Kiểm tra điều kiện dừng
             if (sinhLuc <= 0) {
