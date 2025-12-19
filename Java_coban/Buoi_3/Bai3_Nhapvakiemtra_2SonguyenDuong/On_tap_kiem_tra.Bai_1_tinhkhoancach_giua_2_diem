@@ -1,1 +1,32 @@
+import java.util.Scanner;
 
+public class Bai1{
+    public static void main(String[] args) {
+        int xA,yA,xB,yB;
+        System.out.print("Nhap toa do diem A, enter giua 2 lan nhap:\n");
+        xA = nhapToa_do();
+        yA = nhapToa_do();
+        System.out.print("\nNhap toa do diem B, enter giua 2 lan nhap:\n");
+        xB = nhapToa_do();
+        yB = nhapToa_do();
+        System.out.printf("\nKhoan cach AB la: %.2f",tinhkhoancach(xA, xB, yA, yB));
+    }
+    public static int nhapToa_do(){
+        Scanner sc = new Scanner(System.in);
+        int td;
+        while (true) {
+            try {
+                System.out.print("Nhap toa do: ");
+                td = sc.nextInt();
+                break;
+            } catch (Exception e) {
+                System.out.println("Loi nhap lieu!");
+                sc.nextLine();
+            }
+        }
+        return td;
+    }
+    public static double tinhkhoancach (int xA, int xB, int yA, int yB){
+        return Math.sqrt(Math.pow(xA - xB,2) + Math.pow(yA - yB,2));
+    }
+}
