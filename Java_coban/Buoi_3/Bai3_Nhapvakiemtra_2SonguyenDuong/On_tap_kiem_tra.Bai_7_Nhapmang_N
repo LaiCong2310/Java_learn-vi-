@@ -1,1 +1,185 @@
+//  === Ôn tập kiểm tra ===
+    // Viết chương trình nhập mảng số nguyên dương gồm N phần tử.
+    // a) Kiểm tra giá trị N (5 <=N <= 10). Nếu nhập sai yêu cầu nhập lại
+    // b) Bắt lỗi chương tình (try-catch)
+    // c) Nhập mảng: các ptử phải nằm trong đoạn ơ1, 100]
+    // d) Viết hàm thực hiện các nd sau:
 
+    // - Xuất mảng theo thứ tự ngược
+    // - Đếm số chẵn lẻ
+    // - Đếm số lượng các số chia hết cho 3 nhưng không chia hết cho 5 trong mảng
+    // - Cho biết các ước số của các phần tử trong mảng
+
+    // - Xuất các Số Hoàn Hảo (Perfect Number) có trong mảng 
+    //      <Gợi ý> Số hoàn hảo là số mà tổng các ước số thực sự của nó bằng chính nó (VD: 6 = 1 + 2 + 3)
+
+    // - Xuất ra cặp giá tị (a, b)trong mảng sao cho tích a * b = K.
+
+import java.util.Scanner;
+//import java.util.Arrays;
+
+public class Bai7 {
+    public static void main(String[] args) {
+        int N = nhapN();
+        int [] a = nhapMang(N);
+        xuatMang(a);
+        demChanLe(a);
+        demChia3KhongChia5(a);
+        xuatUocso(a);
+        Xuat_So_Hoan_Hao(a);
+        capGT_bang_K(a, 10); // In ra ket qua cac cap tong = 10
+    }
+
+    public static int nhapN(){
+        Scanner sc = new Scanner(System.in);
+        int N;
+
+        while(true){
+            try {
+                System.out.print("Nhap N: ");
+                N = sc.nextInt();
+                if (N >= 5 && N <= 100)
+                    break;
+                else
+                System.out.println("Vui long nhap lai so nguyen dung");
+            } catch (Exception e) {
+                System.out.println("Loi nhap lieu");
+                sc.nextLine();
+            }
+        }
+        //sc.close();
+        return N;
+    }
+    
+    public static int [] nhapMang(int N){
+        Scanner sc = new Scanner(System.in);
+        int a[] = new int [N];
+
+        for(int i = 0; i < N; i++){
+            while(true){
+                try {
+                    System.out.printf("Nhap phan tu a[%d]: ",i);
+                    a[i] = sc.nextInt();
+                    if (a[i] >= 1 && a[i] <= 1000) {
+                        break;
+                    }
+                    else
+                        System.out.println("\nGia tri khong dung yeu cai.");
+                } catch (Exception e) {
+                    System.out.println("Loi nhap lieu");
+                    sc.nextLine();                
+                }
+            }
+        }
+        //sc.close();
+        return a;
+    }
+    
+    public static void xuatMang(int [] a){
+        System.out.println("\n\t\t--- Xuat Mang ---\n");
+
+        System.out.print("Cac phan tu cua mang: "); //Xuat ra mang vua nhap
+        for(int i = 0;i < a.length; i++){
+            System.out.printf("[%d] ",a[i]);
+        }
+
+        System.out.print("\nMang xuat theo thu tu nguoc: "); // Xuat ra nhung dao nguoc thu tu
+        for(int i = a.length-1; i >= 0; i--){
+            System.out.printf("[%d] ",a[i]);
+        }
+    }
+
+    public static void demChanLe(int []a){
+        int demChan = 0; int demle = 0;
+        for (int i = 0; i<a.length;i++){
+            if (a[i] % 2 == 0) {
+                demChan++;
+            } else {
+                demle++;
+            }
+        }
+        System.out.printf("\nCo [ %d ] so chan va [ %d ] so le co trong mang",demChan,demle);
+    }
+
+    public static void demChia3KhongChia5(int[]a){
+        int dem = 0;
+        String c_so = " ";
+        for(int i = 0; i < a.length; i++){
+            if (a[i] % 3 == 0 && a[i] % 5 != 0) {
+                //System.out.printf("\nSo duoc chon la: %d ", a[i]);
+                c_so += a[i] +" "; //in ra so duoc chon hang ngang
+                dem++;
+            }
+        }
+        if (dem > 0) {
+            System.out.printf("\nCo [ %d ] so luong so chia het cho (<3>) nhung khong chia het cho (<5>).\nCac so do la: [%s] ",dem,c_so);
+            //System.out.printf("\nCac so do la: %s",c_so);
+        }
+        else
+            System.out.println("\nkhong co so nao thoa man dieu kien");
+    }
+
+    public static String timUocSo(int so){
+        String s_Uocso = "";
+        for(int i = 1; i <= so; i++){
+            if (so % i == 0) {
+                s_Uocso += i + " ";
+            }
+        }
+        return s_Uocso;
+    }
+
+    public static void xuatUocso(int [] a){
+        System.out.println("Xuat cac uoc so cua phan tu trong mang: ");
+        for(int i = 0; i < a.length; i++){
+            System.out.printf("Uoc so cua a[%d] = %d la: { %s}\n",i,a[i],timUocSo(a[i]));
+
+        }
+    }
+
+    public static int Tong_uocso(int so){
+        int tong = 0;
+        for(int i = 1; i <= so/2; i++) {
+            if (so % i == 0) {
+                tong += i;
+            }
+        }
+        return tong;
+    }
+
+    public static void Xuat_So_Hoan_Hao(int []a){
+        boolean found = false;
+        String s_HoanHao = "";
+        System.out.println("\nXuat cac so hoan hao: ");
+        for(int i = 0;i < a.length ; i++){
+            if (a[i] == Tong_uocso(a[i])) {
+                found = true;
+                s_HoanHao += a[i]+ " ";
+            }
+        }
+        if (found) {
+            System.out.printf("Cac so hoan hao la: %s",s_HoanHao);
+        } else {
+            System.out.println("Khong co so hoan hao trong mang");
+        }
+    }
+
+    public static void capGT_bang_K(int [] a,int K){
+        boolean found = false;
+        String s_capso = "";
+        for (int i = 0; i < a.length-1; i++){
+            for(int j = i + 1; j< a.length; j++){
+                if ( (a[i] * a[j] ) == K) {
+                    found = true;
+                    s_capso += "( " +a[i] +", "+a[j]+" )";
+                }
+            }
+        }
+        if (found) {
+            System.out.printf("\nCac cap so thoa yeu cau: %s", s_capso);
+        }
+        else{
+            System.out.println("\nCac cap so khong thoa yeu cau!");
+        }
+    }
+}
